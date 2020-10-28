@@ -19,16 +19,15 @@ def calc_nest_egg_over_time(monthly_saving ,r , total_years):
     '''
     return [calc_nest_egg(monthly_saving, y, r) for y in range(0,total_years)]
 
-monthly_savings = st.slider('Monthly Saving', 200, 6000, 1000, 200)
 rate = st.slider('Rate', 1., 12., 7., 0.5)
 total_years = st.slider('Years', 5, 40, 8) + 1
-min_monthly = st.number_input('Monthly Payment', 500, 5000, 1000, 100, '%d')
+min_monthly = st.number_input('Monthly savings', 100, 5000, 1000, 100, '%d')
 max_monthly = 6_000
 inc = int((max_monthly - min_monthly) / 5)
 
 df = pd.DataFrame(
     data = {
-        f'${savings} per month': 
+        (f'${savings}' if savings >= 1000 else f'$ {savings}') + ' per month': 
             calc_nest_egg_over_time(savings,rate,total_years)
             for savings in range(min_monthly,max_monthly,inc)
     }
